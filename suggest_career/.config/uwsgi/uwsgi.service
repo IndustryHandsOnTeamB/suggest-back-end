@@ -3,7 +3,7 @@ Description=uWSGI service
 After=syslog.target
 
 [Service]
-ExecStart=/home/ubuntu/develop/zoorimo-backend/env/bin/uwsgi -i /home/ubuntu/develop/zoorimo-backend/zoorimo/.config/uwsgi/zoorimo.ini
+ExecStart=/home/ubuntu/develop/suggest-back-end/env/bin/uwsgi -i /home/ubuntu/develop/suggest-back-end/suggest_career/.config/uwsgi/suggest.ini
 
 Restart=always
 KillSignal=SIGQUIT
