@@ -20,6 +20,12 @@ class User(AbstractUser):
         null=False,
         blank=False
     )
+    mbti = models.CharField(
+        verbose_name='MBTI',
+        max_length=255,
+        null=False,
+        blank=False
+    )
 
 
 class TestHistory(models.Model):
@@ -34,4 +40,19 @@ class TestHistory(models.Model):
         verbose_name='테스트',
         max_length=255,
         null=False,
+    )
+
+
+class MBTI(models.Model):
+    type = models.CharField(
+        verbose_name='MBTI 유형',
+        max_length=255,
+        null=False,
+        blank=False
+    )
+    list = models.CharField(
+        verbose_name='직업목록',
+        max_length=255,
+        null=False,
+        blank=False
     )

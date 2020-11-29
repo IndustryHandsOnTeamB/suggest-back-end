@@ -8,8 +8,8 @@ from rest_framework import permissions
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from suggest_career.app.models import User
-from suggest_career.app.serializer import UserInfoSerializer, SignInSerializer, SignUpSerializer
+from suggest_career.app.models import User, MBTI
+from suggest_career.app.serializer import UserInfoSerializer, SignInSerializer, SignUpSerializer, MBTISerializer
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -50,8 +50,21 @@ class HighInterestTestViewSet(APIView):
 
 class HighInterestAnswerViewSet(APIView):
     def post(self, request, user_pk, *args, **kwargs):
-        dict = {
+        user = User.objects.get(id=user_pk)
 
+        print(request.data)
+
+        dict = {
+          "apikey": "403f9bbdb00069287e869a9b302b406b",
+          "qestrnSeq": "5",
+          "trgetSe": "100207",
+          "name": user.username,
+          "gender": "100323",
+          "school": "중학교",
+          "grade": "2",
+          "email": "",
+          "startDtm": 1550466291034,
+          "answers": ""
         }
 
 
@@ -59,6 +72,13 @@ class ValueTestViewSet(APIView):
     def get(self, request, user_pk, *args, **kwargs):
         user = User.objects.get(id=user_pk)
 
+
 class UnivAptitudeTestViewSet(APIView):
     def get(self, request, user_pk, *args, **kwargs):
         user = User.objects.get(id=user_pk)
+
+
+class MBTIViewSet(viewsets.ModelViewSet):
+    queryset = MBTI.objects.all()
+    serializer_class = MBTISerializer
+

@@ -5,9 +5,6 @@ from drf_yasg.views import get_schema_view
 from rest_framework import permissions
 from rest_framework_nested import routers
 
-from django.conf.urls.static import static
-from django.conf import settings
-
 from suggest_career.app import views
 from django.contrib import admin
 
@@ -15,6 +12,7 @@ router = routers.DefaultRouter()
 router.register(r'users', views.UserViewSet, basename='user')
 
 user_router = routers.NestedDefaultRouter(router, r'users', lookup='user')
+user_router.register(r'mbti', views.MBTIViewSet, basename='mbti')
 
 # user_router.register(r'quiz/false', views.QuizViewSet, basename='quiz')
 
@@ -48,4 +46,6 @@ urlpatterns = [
 
     url('api/v1/users/(?P<user_pk>[0-9]+)/answer/high/interest', views.HighInterestAnswerViewSet.as_view()),
 
+
+    url('api/v1/users/(?P<user_pk>[0-9]+)/mbti/(?P<mbti>[A-Z]+)', views.HighInterestAnswerViewSet.as_view()),
 ]

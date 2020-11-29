@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from suggest_career.app.models import User
+from suggest_career.app.models import User, MBTI
 
 
 class SignInSerializer(serializers.Serializer):
@@ -62,4 +62,10 @@ class UserInfoSerializer(serializers.ModelSerializer):
 class UserDetailSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = User
+        fields = '__all__'
+
+
+class MBTISerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = MBTI
         fields = '__all__'
