@@ -29,7 +29,8 @@ class SignUpSerializer(serializers.ModelSerializer):
             'username',
             'email',
             'name',
-            'input_password'
+            'input_password',
+            'user_type'
         ]
 
     def create(self, validated_data):
@@ -38,6 +39,7 @@ class SignUpSerializer(serializers.ModelSerializer):
         u.email = validated_data.get('email')
         u.username = validated_data.get('username')
         u.name = validated_data.get('name')
+        u.user_type = validated_data.get('user_type')
 
         input_password = validated_data.get('input_password')
         u.set_password(input_password)
@@ -53,6 +55,7 @@ class UserInfoSerializer(serializers.ModelSerializer):
             'username',
             'email',
             'name',
+            'user_type',
         ]
 
 

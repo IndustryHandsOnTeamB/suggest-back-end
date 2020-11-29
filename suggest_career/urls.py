@@ -42,5 +42,10 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 
-    # url('api/v1/users/(?P<user_pk>[0-9]+)/quiz/true', views.QuizTrueViewSet.as_view()),
+    url('api/v1/users/(?P<user_pk>[0-9]+)/question/high/interest', views.HighInterestTestViewSet.as_view()),
+    url('api/v1/users/(?P<user_pk>[0-9]+)/question/common/valuation', views.ValueTestViewSet.as_view()),
+    url('api/v1/users/(?P<user_pk>[0-9]+)/question/univ/aptitude', views.UnivAptitudeTestViewSet.as_view()),
+
+    url('api/v1/users/(?P<user_pk>[0-9]+)/answer/high/interest', views.HighInterestAnswerViewSet.as_view()),
+
 ]

@@ -1,9 +1,12 @@
+import requests
+from django.http import HttpResponse
 from rest_framework.decorators import action
 from rest_framework.permissions import BasePermission
 
 from rest_framework import viewsets, status
 from rest_framework import permissions
 from rest_framework.response import Response
+from rest_framework.views import APIView
 
 from suggest_career.app.models import User
 from suggest_career.app.serializer import UserInfoSerializer, SignInSerializer, SignUpSerializer
@@ -36,3 +39,26 @@ class UserViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.AllowAny]
 
 
+class HighInterestTestViewSet(APIView):
+    def get(self, request, user_pk, *args, **kwargs):
+        apiKey = '403f9bbdb00069287e869a9b302b406b'
+        URL = 'http://inspct.career.go.kr/openapi/test/questions?apikey='+apiKey+'&q=5'
+        res = requests.get(URL)
+
+        return HttpResponse(res, content_type='application/json')
+
+
+class HighInterestAnswerViewSet(APIView):
+    def post(self, request, user_pk, *args, **kwargs):
+        dict = {
+
+        }
+
+
+class ValueTestViewSet(APIView):
+    def get(self, request, user_pk, *args, **kwargs):
+        user = User.objects.get(id=user_pk)
+
+class UnivAptitudeTestViewSet(APIView):
+    def get(self, request, user_pk, *args, **kwargs):
+        user = User.objects.get(id=user_pk)
