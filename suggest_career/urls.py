@@ -12,7 +12,6 @@ router = routers.DefaultRouter()
 router.register(r'users', views.UserViewSet, basename='user')
 
 user_router = routers.NestedDefaultRouter(router, r'users', lookup='user')
-user_router.register(r'mbti', views.MBTIViewSet, basename='mbti')
 
 # user_router.register(r'quiz/false', views.QuizViewSet, basename='quiz')
 
@@ -40,12 +39,27 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 
+    ### 흥미검사
     url('api/v1/users/(?P<user_pk>[0-9]+)/question/high/interest', views.HighInterestTestViewSet.as_view()),
-    url('api/v1/users/(?P<user_pk>[0-9]+)/question/common/valuation', views.ValueTestViewSet.as_view()),
-    url('api/v1/users/(?P<user_pk>[0-9]+)/question/univ/aptitude', views.UnivAptitudeTestViewSet.as_view()),
-
     url('api/v1/users/(?P<user_pk>[0-9]+)/answer/high/interest', views.HighInterestAnswerViewSet.as_view()),
 
+    url('api/v1/users/(?P<user_pk>[0-9]+)/question/middle/interest', views.MiddleInterestTestViewSet.as_view()),
+    url('api/v1/users/(?P<user_pk>[0-9]+)/answer/middle/interest', views.MiddleInterestAnswerViewSet.as_view()),
 
-    url('api/v1/users/(?P<user_pk>[0-9]+)/mbti/(?P<mbti>[A-Z]+)', views.HighInterestAnswerViewSet.as_view()),
+    ### 적성검사
+    url('api/v1/users/(?P<user_pk>[0-9]+)/question/high/aptitude', views.HighAptitudeTestViewSet.as_view()),
+    url('api/v1/users/(?P<user_pk>[0-9]+)/answer/high/aptitude', views.HighAptitudeAnswerViewSet.as_view()),
+
+    url('api/v1/users/(?P<user_pk>[0-9]+)/question/middle/aptitude', views.MiddleAptitudeTestViewSet.as_view()),
+    url('api/v1/users/(?P<user_pk>[0-9]+)/answer/middle/aptitude', views.MiddleAptitudeAnswerViewSet.as_view()),
+
+    ### 직업 가치관 검사
+    url('api/v1/users/(?P<user_pk>[0-9]+)/question/common/value', views.ValueTestViewSet.as_view()),
+    url('api/v1/users/(?P<user_pk>[0-9]+)/answer/common/value', views.ValueAnswerViewSet.as_view()),
+
+    ### 이공계적합도 검사
+    url('api/v1/users/(?P<user_pk>[0-9]+)/question/common/se', views.SEAptitudeTestViewSet.as_view()),
+    url('api/v1/users/(?P<user_pk>[0-9]+)/answer/common/se', views.SEAptitudeAnswerViewSet.as_view()),
+
 ]
+

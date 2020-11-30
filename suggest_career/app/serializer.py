@@ -63,9 +63,3 @@ class UserDetailSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = User
         fields = '__all__'
-
-
-class MBTISerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = MBTI
-        fields = '__all__'

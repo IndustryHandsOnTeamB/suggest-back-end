@@ -47,7 +47,7 @@ class MBTI(models.Model):
     type = models.CharField(
         verbose_name='MBTI 유형',
         max_length=255,
-        null=False,
+        null=True,
         blank=False
     )
     list = models.CharField(
