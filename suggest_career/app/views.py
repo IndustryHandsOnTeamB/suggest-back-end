@@ -346,3 +346,5 @@ class UnivAptitudeTestViewSet(APIView):
 class MBTIViewSet(APIView):
     def get(self, request, user_pk, *args, **kwargs):
         user = User.objects.get(id=user_pk)
+
+## CI check
