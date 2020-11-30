@@ -8,7 +8,7 @@ from rest_framework import permissions
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from suggest_career.app.models import User, MBTI
+from suggest_career.app.models import User, MBTI, TestHistory
 from suggest_career.app.serializer import UserInfoSerializer, SignInSerializer, SignUpSerializer
 
 
@@ -77,6 +77,12 @@ class MiddleInterestAnswerViewSet(APIView):
             'url': api_res_url
         }
         api_res = json.dumps(api_res_dict, ensure_ascii=False)
+
+        test_history = TestHistory()
+        test_history.user = user
+        test_history.result = api_res_url
+        test_history.save()
+
         return HttpResponse(api_res, content_type='application/json')
 
 
@@ -117,6 +123,12 @@ class HighInterestAnswerViewSet(APIView):
             'url': api_res_url
         }
         api_res = json.dumps(api_res_dict, ensure_ascii=False)
+
+        test_history = TestHistory()
+        test_history.user = user
+        test_history.result = api_res_url
+        test_history.save()
+
         return HttpResponse(api_res, content_type='application/json')
 
 
@@ -159,6 +171,12 @@ class MiddleAptitudeAnswerViewSet(APIView):
             'url': api_res_url
         }
         api_res = json.dumps(api_res_dict, ensure_ascii=False)
+
+        test_history = TestHistory()
+        test_history.user = user
+        test_history.result = api_res_url
+        test_history.save()
+
         return HttpResponse(api_res, content_type='application/json')
 
 
@@ -199,6 +217,12 @@ class HighAptitudeAnswerViewSet(APIView):
             'url': api_res_url
         }
         api_res = json.dumps(api_res_dict, ensure_ascii=False)
+
+        test_history = TestHistory()
+        test_history.user = user
+        test_history.result = api_res_url
+        test_history.save()
+
         return HttpResponse(api_res, content_type='application/json')
 
 
@@ -241,6 +265,12 @@ class ValueAnswerViewSet(APIView):
             'url': api_res_url
         }
         api_res = json.dumps(api_res_dict, ensure_ascii=False)
+
+        test_history = TestHistory()
+        test_history.user = user
+        test_history.result = api_res_url
+        test_history.save()
+
         return HttpResponse(api_res, content_type='application/json')
 
 
@@ -283,12 +313,35 @@ class SEAptitudeAnswerViewSet(APIView):
             'url': api_res_url
         }
         api_res = json.dumps(api_res_dict, ensure_ascii=False)
+
+        test_history = TestHistory()
+        test_history.user = user
+        test_history.result = api_res_url
+        test_history.save()
+
         return HttpResponse(api_res, content_type='application/json')
+
+
+class UserHistoryViewSet(APIView):
+    def get(self, request, user_pk, *args, **kwargs):
+        user = User.objects.get(id=user_pk)
+        test_history_list = user.history_user.all()
+
+        test_history_url_list = []
+        for i in range(len(test_history_list)):
+            test_history_url_list.append(test_history_list[i].result)
+
+        dict = {
+            'answer': test_history_url_list
+        }
+
+        resJson = json.dumps(dict, ensure_ascii=False)
+        return HttpResponse(resJson, content_type='application/json')
+
 
 class UnivAptitudeTestViewSet(APIView):
     def get(self, request, user_pk, *args, **kwargs):
         user = User.objects.get(id=user_pk)
-
 
 class MBTIViewSet(APIView):
     def get(self, request, user_pk, *args, **kwargs):

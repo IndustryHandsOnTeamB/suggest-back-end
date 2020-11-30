@@ -61,5 +61,8 @@ urlpatterns = [
     url('api/v1/users/(?P<user_pk>[0-9]+)/question/common/se', views.SEAptitudeTestViewSet.as_view()),
     url('api/v1/users/(?P<user_pk>[0-9]+)/answer/common/se', views.SEAptitudeAnswerViewSet.as_view()),
 
+    ### 테스트 히스토리 조회
+    url('api/v1/users/(?P<user_pk>[0-9]+)/testhistory', views.UserHistoryViewSet.as_view()),
+
 ]
 
