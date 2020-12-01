@@ -366,6 +366,7 @@ class MBTIViewSet(APIView):
         mbti = MBTI.objects.get(type=user.mbti)
 
         res_dict = {
+            "mbti": user.mbti,
             "job": mbti.list
         }
         resJson = json.dumps(res_dict, ensure_ascii=False)
