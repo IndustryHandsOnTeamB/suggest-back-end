@@ -1,5 +1,5 @@
 import requests, json
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from rest_framework.decorators import action
 from rest_framework.permissions import BasePermission
 
@@ -322,6 +322,10 @@ class SEAptitudeAnswerViewSet(APIView):
         return HttpResponse(api_res, content_type='application/json')
 
 
+# ----------------------------------------------------------
+# ----------------유저 히스토리--------------------------------
+# ----------------------------------------------------------
+
 class UserHistoryViewSet(APIView):
     def get(self, request, user_pk, *args, **kwargs):
         user = User.objects.get(id=user_pk)
@@ -339,12 +343,35 @@ class UserHistoryViewSet(APIView):
         return HttpResponse(resJson, content_type='application/json')
 
 
-class UnivAptitudeTestViewSet(APIView):
-    def get(self, request, user_pk, *args, **kwargs):
+# ----------------------------------------------------------
+# ----------------MBTI--------------------------------------
+# ----------------------------------------------------------
+
+class MBTISaveViewSet(APIView):
+    def post(self, request, user_pk, *args, **kwargs):
         user = User.objects.get(id=user_pk)
+        mbti = request.data['mbti']
+
+        user.mbti = mbti
+        u = user.save()
+
+        return JsonResponse({
+            "detail": "MBTI saved"
+        })
+
 
 class MBTIViewSet(APIView):
     def get(self, request, user_pk, *args, **kwargs):
         user = User.objects.get(id=user_pk)
+        mbti = MBTI.objects.get(type=user.mbti)
 
-## CI check
+        res_dict = {
+            "job": mbti.list
+        }
+        resJson = json.dumps(res_dict, ensure_ascii=False)
+        return HttpResponse(resJson, content_type='application/json')
+
+
+class UnivAptitudeTestViewSet(APIView):
+    def get(self, request, user_pk, *args, **kwargs):
+        user = User.objects.get(id=user_pk)

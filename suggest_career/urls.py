@@ -64,5 +64,9 @@ urlpatterns = [
     ### 테스트 히스토리 조회
     url('api/v1/users/(?P<user_pk>[0-9]+)/testhistory', views.UserHistoryViewSet.as_view()),
 
+    ### MBTI
+    url('api/v1/users/(?P<user_pk>[0-9]+)/mbti/save', views.MBTISaveViewSet.as_view()),
+    url('api/v1/users/(?P<user_pk>[0-9]+)/mbti/view', views.MBTIViewSet.as_view()),
+
 ]
 
